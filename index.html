@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kit IA de l'Automaticien — L'IA branchée sur ton vrai poste</title>
+<meta name="description" content="Prompts, méthodes et workflows testés pour appliquer l'IA à ton métier d'automaticien : cahier des charges, documentation, migration. 100% francophone, tous automates.">
+<meta property="og:title" content="Kit IA de l'Automaticien">
+<meta property="og:description" content="L'IA branchée sur ton vrai poste. Concret, francophone, tous automates.">
+<meta property="og:type" content="product">
+<style>
+  :root{
+    --petrol:#0B3D52; --petrol-2:#0A2A37; --petrol-line:#1C4E63;
+    --amber:#E8A317; --amber-soft:#F4C765;
+    --ink:#15212A; --muted:#5C6B73; --paper:#F4F6F8; --white:#fff; --line:#D7E0E5;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Code",Consolas,"Liberation Mono","Courier New",monospace;
+    --wrap:1080px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--white);
+    line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:var(--wrap);margin:0 auto;padding:0 22px}
+  .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--amber);font-weight:600;margin:0 0 14px}
+  h1,h2,h3{line-height:1.12;letter-spacing:-.01em;margin:0}
+  h1{font-size:clamp(2rem,5.4vw,3.3rem);font-weight:800}
+  h2{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800}
+  h3{font-size:1.08rem;font-weight:700}
+  p{margin:.6em 0}
+  .btn{display:inline-block;background:var(--amber);color:var(--petrol-2);
+    font-weight:800;text-decoration:none;padding:15px 28px;border-radius:3px;
+    font-size:1.02rem;letter-spacing:.01em;border:2px solid var(--amber);
+    transition:transform .12s ease, box-shadow .12s ease}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,163,23,.28)}
+  .btn-ghost{background:transparent;color:var(--white);border:2px solid var(--petrol-line)}
+  .btn-ghost:hover{box-shadow:none;border-color:var(--amber)}
+
+  /* ---------- HERO ---------- */
+  .hero{background:var(--petrol);color:var(--white);
+    border-bottom:6px solid var(--amber);padding:64px 0 72px}
+  .hero .grid{display:grid;gap:42px;grid-template-columns:1fr}
+  .hero h1 span{color:var(--amber-soft)}
+  .lead{font-size:1.12rem;color:#CFDDE4;max-width:34ch}
+  .price-row{display:flex;align-items:baseline;gap:12px;margin:26px 0 18px;flex-wrap:wrap}
+  .price{font-size:2.1rem;font-weight:800}
+  .price-old{font-family:var(--mono);color:#8FA7B2;text-decoration:line-through;font-size:1.1rem}
+  .price-tag{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--petrol-2);background:var(--amber);
+    padding:4px 9px;border-radius:2px;font-weight:700}
+  .hero-note{font-family:var(--mono);font-size:.78rem;color:#8FA7B2;margin-top:16px}
+
+  /* signature panel: prose -> structured */
+  .panel{background:var(--petrol-2);border:1px solid var(--petrol-line);
+    border-radius:6px;overflow:hidden;font-family:var(--mono);font-size:.82rem}
+  .panel .bar{display:flex;justify-content:space-between;align-items:center;
+    background:#0c3344;padding:11px 15px;border-bottom:1px solid var(--petrol-line);
+    color:var(--amber);letter-spacing:.1em;font-size:.7rem;text-transform:uppercase}
+  .panel .body{padding:16px 17px;color:#C7D6DD}
+  .panel .lbl{color:#7E97A2;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+    display:block;margin:2px 0 7px}
+  .panel .in{color:#9FB3BC;font-style:italic;font-family:var(--sans);font-size:.86rem;
+    border-left:2px solid var(--petrol-line);padding-left:12px;margin-bottom:16px}
+  .panel .arrow{color:var(--amber);text-align:center;margin:10px 0;letter-spacing:.3em}
+  .panel pre{margin:0;white-space:pre-wrap;line-height:1.5}
+  .panel .rep{color:var(--amber-soft)}
+
+  /* ---------- generic section ---------- */
+  section{padding:68px 0}
+  .sec-head{max-width:60ch;margin-bottom:34px}
+  .sec-head h2{margin-top:6px}
+  .sub{color:var(--muted);font-size:1.05rem}
+  .paper{background:var(--paper)}
+
+  .cards{display:grid;gap:18px;grid-template-columns:1fr}
+  .card{background:var(--white);border:1px solid var(--line);border-radius:6px;
+    padding:24px 22px}
+  .card .tag{font-family:var(--mono);font-size:.72rem;color:var(--amber);
+    letter-spacing:.1em;font-weight:700;text-transform:uppercase}
+  .card h3{margin:10px 0 8px}
+  .card p{color:var(--muted);margin:0}
+
+  .sol{display:grid;gap:0;grid-template-columns:1fr;border:1px solid var(--line);
+    border-radius:6px;overflow:hidden}
+  .sol .row{display:grid;gap:0;grid-template-columns:1fr;border-top:1px solid var(--line)}
+  .sol .row:first-child{border-top:0}
+  .sol .pain,.sol .fix{padding:20px 22px}
+  .sol .pain{background:var(--paper)}
+  .sol .pain .k{font-family:var(--mono);font-size:.72rem;color:var(--muted);
+    text-transform:uppercase;letter-spacing:.1em}
+  .sol .fix .k{font-family:var(--mono);font-size:.72rem;color:var(--amber);
+    text-transform:uppercase;letter-spacing:.1em}
+  .sol h3{font-size:1rem;margin:7px 0 4px}
+  .sol p{margin:0;color:var(--muted);font-size:.96rem}
+
+  .benefits{display:grid;gap:14px;grid-template-columns:1fr;counter-reset:b}
+  .benefit{display:flex;gap:16px;align-items:flex-start;padding:16px 0;
+    border-bottom:1px solid var(--line)}
+  .benefit::before{counter-increment:b;content:counter(b,decimal-leading-zero);
+    font-family:var(--mono);color:var(--amber);font-weight:700;font-size:.95rem;
+    flex:0 0 auto;padding-top:2px}
+  .benefit b{display:block}
+  .benefit span{color:var(--muted)}
+
+  .who{display:grid;gap:18px;grid-template-columns:1fr}
+  .who .col{border:1px solid var(--line);border-radius:6px;padding:24px 22px}
+  .who .col.no{background:var(--paper)}
+  .who h3{margin-bottom:12px}
+  .who ul{margin:0;padding:0;list-style:none}
+  .who li{padding:7px 0 7px 26px;position:relative;color:var(--ink)}
+  .who li::before{position:absolute;left:0;top:7px;font-family:var(--mono);font-weight:700}
+  .who .yes li::before{content:"+";color:#2E8B57}
+  .who .no li{color:var(--muted)}
+  .who .no li::before{content:"\2212";color:#B23B3B}
+
+  /* ---------- pricing ---------- */
+  .pricing{background:var(--petrol);color:var(--white)}
+  .pricing .eyebrow{color:var(--amber)}
+  .pbox{background:var(--petrol-2);border:1px solid var(--petrol-line);
+    border-radius:8px;padding:34px 30px;max-width:560px}
+  .pbox .top{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+    border-bottom:1px solid var(--petrol-line);padding-bottom:20px;margin-bottom:20px}
+  .pbox .big{font-size:2.6rem;font-weight:800}
+  .incl{list-style:none;margin:0 0 26px;padding:0}
+  .incl li{padding:8px 0 8px 28px;position:relative;color:#D6E2E8}
+  .incl li::before{content:"\2713";position:absolute;left:0;color:var(--amber);
+    font-weight:800;font-family:var(--mono)}
+  .pbox .btn{width:100%;text-align:center}
+  .guarantee{font-family:var(--mono);font-size:.78rem;color:#8FA7B2;margin-top:16px;text-align:center}
+
+  /* ---------- FAQ ---------- */
+  .faq details{border-bottom:1px solid var(--line)}
+  .faq summary{cursor:pointer;list-style:none;padding:20px 40px 20px 0;position:relative;
+    font-weight:700;font-size:1.04rem}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";position:absolute;right:6px;top:18px;
+    font-family:var(--mono);color:var(--amber);font-size:1.4rem;font-weight:700;transition:transform .2s}
+  .faq details[open] summary::after{content:"\2212"}
+  .faq .ans{color:var(--muted);padding:0 40px 20px 0}
+
+  /* ---------- final + footer ---------- */
+  .final{background:var(--petrol-2);color:var(--white);text-align:center}
+  .final h2{max-width:20ch;margin:0 auto 10px}
+  .final .lead{margin:0 auto 26px;color:#CFDDE4}
+  footer{background:#06212C;color:#7E97A2;font-size:.85rem;padding:30px 0}
+  footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  footer a{color:#9FB3BC;text-decoration:none}
+  footer .mono{font-family:var(--mono);font-size:.76rem}
+
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(min-width:760px){
+    .hero{padding:84px 0 92px}
+    .hero .grid{grid-template-columns:1.05fr .95fr;align-items:center}
+    .cards{grid-template-columns:repeat(3,1fr)}
+    .sol .row{grid-template-columns:1fr 1fr}
+    .sol .fix{border-left:1px solid var(--line)}
+    .benefits{grid-template-columns:1fr 1fr;column-gap:40px}
+    .who{grid-template-columns:1fr 1fr}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    html{scroll-behavior:auto}
+    .btn:hover{transform:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="wrap grid">
+    <div>
+      <p class="eyebrow">Kit pratique · 100% francophone</p>
+      <h1>L'IA branchée sur ton <span>vrai poste</span> de travail.</h1>
+      <p class="lead">Des prompts, des méthodes et des workflows testés pour appliquer l'IA à ton métier d'automaticien. Cahier des charges, documentation, migration. Tous automates, aucun blabla.</p>
+      <div class="price-row">
+        <span class="price">37&nbsp;€</span>
+        <span class="price-old">57&nbsp;€</span>
+        <span class="price-tag">Prix de lancement</span>
+      </div>
+      <!-- REMPLACER PAR l'URL de ton produit Payhip (créé en phase de déploiement / RELAY) -->
+      <a class="btn" href="#REMPLACER_PAR_URL_PAYHIP">Obtenir le kit&nbsp;→</a>
+      <p class="hero-note">// PDF de 21 pages · 3 workflows · 10 prompts prêts · mises à jour incluses</p>
+    </div>
+
+    <div class="panel" aria-label="Exemple : cahier des charges transformé en séquence et liste d'entrées/sorties">
+      <div class="bar"><span>Workflow 01 — cahier des charges → E/S</span><span>// démo</span></div>
+      <div class="body">
+        <span class="lbl">Entrée — prose du client</span>
+        <p class="in">« Quand un bidon arrive au poste, on le bride, la buse descend et remplit, puis on évacue. Arrêt d'urgence obligatoire. »</p>
+        <div class="arrow">▼ ▼ ▼</div>
+        <span class="lbl">Sortie — structurée par l'IA</span>
+<pre>Etape 1 : Bridage bidon
+   --[bidon bridé]--&gt;
+Etape 2 : Descente buse + remplissage
+   --[volume atteint]--&gt;
+Etape 3 : Evacuation --&gt; retour Etape 1
+
+<span class="rep">-S0</span> DI  Arrêt d'urgence      [sécu]
+<span class="rep">-B1</span> DI  Présence bidon
+<span class="rep">-Y1</span> DO  Vanne remplissage
+<span class="rep">-B5</span> AI  Mesure de volume</pre>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ PROBLÈME ============ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Le quotidien</p>
+      <h2>Tu sais que l'IA va changer ton métier. Mais comment, sur ton vrai travail ?</h2>
+      <p class="sub">Pas en théorie. Sur les trois situations qui te coûtent le plus de temps chaque semaine.</p>
+    </div>
+    <div class="cards">
+      <div class="card reveal">
+        <span class="tag">Situation 01</span>
+        <h3>Un cahier des charges flou</h3>
+        <p>Trois paragraphes en prose à transformer en séquence claire et en liste d'E/S exhaustive. Long, et c'est là que les oublis coûtent cher en mise en service.</p>
+      </div>
+      <div class="card reveal">
+        <span class="tag">Situation 02</span>
+        <h3>Un programme sans un commentaire</h3>
+        <p>Reprise de machine, concepteur parti. Des variables cryptiques, zéro doc, et il faut comprendre l'intention avant la moindre modif.</p>
+      </div>
+      <div class="card reveal">
+        <span class="tag">Situation 03</span>
+        <h3>Une migration qui traîne</h3>
+        <p>Migrer ou refactoriser sans recopier les bugs ni casser les sécurités. Le genre de tâche qu'on repousse parce qu'elle est risquée.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOLUTION ============ -->
+<section class="paper">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Ce que fait le kit</p>
+      <h2>Un geste précis pour chaque situation</h2>
+      <p class="sub">Chaque workflow : la méthode, le prompt prêt à copier, un exemple concret de bout en bout, et les garde-fous.</p>
+    </div>
+    <div class="sol reveal">
+      <div class="row">
+        <div class="pain"><span class="k">Situation 01</span><h3>Cahier des charges flou</h3><p>Tu pars de la page blanche à chaque fois.</p></div>
+        <div class="fix"><span class="k">Workflow 01</span><h3>Spec → logique + liste d'E/S</h3><p>L'IA sort une séquence structurée et une liste d'E/S. Et liste les hypothèses à valider, comme un bon collègue.</p></div>
+      </div>
+      <div class="row">
+        <div class="pain"><span class="k">Situation 02</span><h3>Programme non commenté</h3><p>Des heures à relire avant de toucher quoi que ce soit.</p></div>
+        <div class="fix"><span class="k">Workflow 02</span><h3>Documentation automatique</h3><p>Résumé, sections expliquées, tableau des variables. Le certain séparé du supposé, marqué noir sur blanc.</p></div>
+      </div>
+      <div class="row">
+        <div class="pain"><span class="k">Situation 03</span><h3>Migration risquée</h3><p>Traduire ligne à ligne propage les vieux bricolages.</p></div>
+        <div class="fix"><span class="k">Workflow 03</span><h3>Extraire → nettoyer → régénérer</h3><p>On passe par une spec neutre que tu valides. La nouvelle version est bâtie sur l'intention, pas sur l'historique.</p></div>
+      </div>
+      <div class="row">
+        <div class="pain"><span class="k">Au quotidien</span><h3>Mille petites tâches</h3><p>Listes d'E/S, dimensionnements, recettes, diagnostics…</p></div>
+        <div class="fix"><span class="k">Bibliothèque</span><h3>10 prompts prêts à l'emploi</h3><p>Ton couteau suisse : analyse fonctionnelle, AMDEC, scaling analogique, cahier de recette, diagnostic de panne.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BÉNÉFICES ============ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Ce que tu y gagnes</p>
+      <h2>Du temps gagné dès le premier projet</h2>
+    </div>
+    <div class="benefits reveal">
+      <div class="benefit"><div><b>Tu démarres d'une trame, pas d'une page blanche.</b><span>La structuration fastidieuse est faite ; tu corriges, tu décides.</span></div></div>
+      <div class="benefit"><div><b>Tu reprends un programme legacy en minutes.</b><span>Compréhension claire avant la moindre intervention.</span></div></div>
+      <div class="benefit"><div><b>Tu gardes la main sur la qualité.</b><span>Chaque prompt force l'IA à signaler ses hypothèses au lieu d'inventer.</span></div></div>
+      <div class="benefit"><div><b>Tu travailles avec n'importe quel automate.</b><span>Siemens, Schneider, Rockwell, Beckhoff, CODESYS — la logique est agnostique.</span></div></div>
+      <div class="benefit"><div><b>Tu protèges la confidentialité de tes clients.</b><span>Un module entier dédié à l'anonymisation et au bon usage en milieu industriel.</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ POUR QUI ============ -->
+<section class="paper">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Honnêteté</p>
+      <h2>Pour qui — et pas pour qui</h2>
+    </div>
+    <div class="who reveal">
+      <div class="col yes">
+        <h3>C'est pour toi si…</h3>
+        <ul>
+          <li>Tu es technicien BE, programmeur PLC ou intégrateur.</li>
+          <li>Tu veux des gestes applicables tout de suite, pas un cours d'IA.</li>
+          <li>Tu sais qu'une sortie d'IA se relit et se teste avant le terrain.</li>
+          <li>Tu travailles en français et tu en as marre des ressources 100% en anglais.</li>
+        </ul>
+      </div>
+      <div class="col no">
+        <h3>Ce n'est pas pour toi si…</h3>
+        <ul>
+          <li>Tu cherches un outil qui programme l'automate à ta place.</li>
+          <li>Tu veux une garantie que l'IA ne se trompe jamais (ça n'existe pas).</li>
+          <li>Tu débutes totalement en automatisme — le kit suppose le métier acquis.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section class="pricing">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Accès</p>
+      <h2>Un seul paiement. À toi pour de bon.</h2>
+    </div>
+    <div class="pbox reveal">
+      <div class="top">
+        <span class="big">37&nbsp;€</span>
+        <span class="price-old">57&nbsp;€</span>
+        <span class="price-tag">Lancement</span>
+      </div>
+      <ul class="incl">
+        <li>Le kit complet en PDF (21 pages, 6 modules)</li>
+        <li>Module démarrage + méthode de prompting CRAFT</li>
+        <li>3 workflows complets avec exemples de bout en bout</li>
+        <li>Bibliothèque de 10 prompts prêts à l'emploi</li>
+        <li>Guide pour connecter l'IA à tes outils (3 niveaux)</li>
+        <li>Mises à jour de cette édition incluses</li>
+      </ul>
+      <!-- REMPLACER PAR l'URL de ton produit Payhip -->
+      <a class="btn" href="#REMPLACER_PAR_URL_PAYHIP">Obtenir le kit — 37&nbsp;€</a>
+      <p class="guarantee">// Paiement sécurisé · TVA EU gérée · livraison immédiate</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Questions</p>
+      <h2>Ce qu'on me demande le plus</h2>
+    </div>
+    <div class="faq reveal">
+      <details><summary>Est-ce que ça marche avec mon automate (Siemens, Schneider, Rockwell…) ?</summary>
+        <div class="ans">Oui. Les workflows portent sur la logique, la documentation et les listes d'E/S — des problèmes universels, indépendants de la marque. Tu adaptes la syntaxe finale à ton environnement ; l'IA fait le travail de structuration.</div></details>
+      <details><summary>Quel outil d'IA me faut-il, et est-ce payant en plus ?</summary>
+        <div class="ans">N'importe quel grand modèle récent suffit pour la majorité des tâches. Le module 0 t'aide à choisir (cloud, hébergé en EU, ou local) selon ta sensibilité aux données. Un abonnement à ~20 €/mois se rentabilise en une matinée gagnée, mais le gratuit permet de démarrer.</div></details>
+      <details><summary>Et la confidentialité de mes programmes et de mes clients ?</summary>
+        <div class="ans">C'est traité en priorité. Un module entier est consacré à l'anonymisation systématique et au choix d'un modèle hébergé en EU ou local pour les données vraiment sensibles. La règle d'or : on ne colle jamais d'identifiant client dans un LLM public.</div></details>
+      <details><summary>L'IA va-t-elle écrire mon programme à ma place ?</summary>
+        <div class="ans">Non, et c'est volontaire. Le kit positionne l'IA comme un assistant de conception : elle structure, propose, documente. Toi, tu relis, tu valides et tu testes. Sur un automatisme, la sécurité des personnes prime sur tout gain de temps.</div></details>
+      <details><summary>Je reçois quoi, et quand ?</summary>
+        <div class="ans">Un fichier ZIP avec le PDF complet et ta licence, par email, immédiatement après le paiement. Tu le télécharges et il est à toi — utilisable hors ligne, à ton poste.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA FINAL ============ -->
+<section class="final">
+  <div class="wrap">
+    <p class="eyebrow" style="color:var(--amber)">Dernière chose</p>
+    <h2>Arrête de regarder l'IA arriver. Branche-la sur ton poste.</h2>
+    <p class="lead">37 € au lancement, à toi pour de bon, mises à jour incluses.</p>
+    <!-- REMPLACER PAR l'URL de ton produit Payhip -->
+    <a class="btn" href="#REMPLACER_PAR_URL_PAYHIP">Obtenir le kit — 37&nbsp;€</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 — Kit IA de l'Automaticien</span>
+    <span class="mono">
+      <!-- REMPLACER PAR ton email de support --> contact : REMPLACER_PAR_EMAIL_SUPPORT
+    </span>
+  </div>
+</footer>
+
+<script>
+  // Révélation au défilement — désactivée si l'utilisateur préfère réduire les animations.
+  (function(){
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els = document.querySelectorAll('.reveal');
+    if(reduce || !('IntersectionObserver' in window)){
+      els.forEach(function(e){ e.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    },{threshold:.12});
+    els.forEach(function(e){ io.observe(e); });
+  })();
+</script>
+</body>
+</html>
