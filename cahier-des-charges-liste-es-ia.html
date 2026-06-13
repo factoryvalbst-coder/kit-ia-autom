@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Transformer un cahier des charges en liste d&#x27;E/S avec l&#x27;IA</title>
+<meta name="description" content="Méthode et prompt prêt à l&#x27;emploi pour transformer un cahier des charges en séquence structurée et liste d&#x27;entrées/sorties, avec l&#x27;IA. Exemple concret.">
+<link rel="canonical" href="https://factoryvalbst-coder.github.io/kit-ia-autom/cahier-des-charges-liste-es-ia.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Transformer un cahier des charges en liste d&#x27;E/S avec l&#x27;IA">
+<meta property="og:description" content="Méthode et prompt prêt à l&#x27;emploi pour transformer un cahier des charges en séquence structurée et liste d&#x27;entrées/sorties, avec l&#x27;IA. Exemple concret.">
+<meta property="og:url" content="https://factoryvalbst-coder.github.io/kit-ia-autom/cahier-des-charges-liste-es-ia.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Transformer un cahier des charges en liste d'E/S avec l'IA","description":"Méthode et prompt prêt à l'emploi pour transformer un cahier des charges en séquence structurée et liste d'entrées/sorties, avec l'IA. Exemple concret.","inLanguage":"fr","mainEntityOfPage":"https://factoryvalbst-coder.github.io/kit-ia-autom/cahier-des-charges-liste-es-ia.html"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Quel outil d'IA utiliser pour cette tâche ?","acceptedAnswer":{"@type":"Answer","text":"N'importe quel grand modèle récent convient. Pour un cahier des charges contenant des informations sensibles, anonymise d'abord, ou utilise un modèle hébergé en EU ou en local."}},{"@type":"Question","name":"L'IA peut-elle générer directement le programme automate ?","acceptedAnswer":{"@type":"Answer","text":"Elle peut proposer du pseudo-code ou du Structured Text, mais le résultat est une proposition à relire et à tester intégralement. Elle ne remplace pas la conception ni la recette."}},{"@type":"Question","name":"Comment être sûr qu'aucune E/S n'est oubliée ?","acceptedAnswer":{"@type":"Answer","text":"Demande à l'IA de terminer par un comptage par type (DI/DO/AI/AO) et de signaler tout élément ambigu sous « À confirmer ». Le comptage final sert de contrôle visuel rapide."}}]}]}</script>
+<style>
+:root{
+  --petrol:#0B3D52;--petrol-2:#0A2A37;--petrol-line:#1C4E63;
+  --amber:#E8A317;--amber-soft:#F4C765;
+  --ink:#1A2228;--muted:#5C6B73;--paper:#F4F6F8;--line:#E1E8EC;--white:#fff;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","Cascadia Code",Consolas,"Liberation Mono","Courier New",monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--white);line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:#0B5E80}
+.topbar{background:var(--petrol);color:#fff;border-bottom:4px solid var(--amber)}
+.topbar .in{max-width:880px;margin:0 auto;padding:14px 22px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{font-weight:800;text-decoration:none;color:#fff;letter-spacing:-.01em}
+.brand span{color:var(--amber-soft)}
+.btn{display:inline-block;background:var(--amber);color:var(--petrol-2);font-weight:800;text-decoration:none;padding:10px 18px;border-radius:3px;border:2px solid var(--amber);font-size:.95rem}
+.btn:hover{filter:brightness(1.04)}
+main{max-width:720px;margin:0 auto;padding:40px 22px 10px}
+.kicker{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);font-weight:700;margin:0 0 10px}
+h1{font-size:clamp(1.8rem,4.6vw,2.5rem);line-height:1.15;letter-spacing:-.01em;margin:0 0 10px;font-weight:800;color:var(--petrol)}
+.meta{color:var(--muted);font-size:.9rem;margin:0 0 26px;font-family:var(--mono)}
+h2{font-size:1.35rem;margin:34px 0 10px;color:var(--petrol);letter-spacing:-.01em}
+h3{font-size:1.08rem;margin:22px 0 6px}
+p,li{font-size:1.04rem}
+ul,ol{padding-left:22px}
+li{margin:6px 0}
+.lead{font-size:1.14rem;color:#33424B}
+.prompt{background:var(--petrol-2);border:1px solid var(--petrol-line);border-radius:6px;padding:14px 16px;margin:16px 0;font-family:var(--mono);font-size:.82rem;color:#D6E2E8;white-space:pre-wrap;line-height:1.5;overflow-x:auto}
+.prompt .lbl{display:block;color:var(--amber);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.note{background:var(--paper);border-left:3px solid var(--amber);padding:12px 16px;margin:16px 0;border-radius:0 4px 4px 0;color:#33424B}
+.cta{background:var(--petrol);color:#fff;border-radius:8px;padding:26px 24px;margin:34px 0}
+.cta h3{margin:0 0 8px;color:#fff;font-size:1.25rem}
+.cta p{margin:0 0 16px;color:#CFDDE4}
+.related{border-top:1px solid var(--line);margin-top:34px;padding-top:18px}
+.related h2{font-size:1.05rem;margin:0 0 10px}
+.related a{display:block;padding:6px 0}
+.faq{margin-top:30px}
+.faq h2{margin-bottom:6px}
+.faq details{border-bottom:1px solid var(--line);padding:4px 0}
+.faq summary{cursor:pointer;font-weight:700;padding:14px 0;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq .a{color:#33424B;padding:0 0 14px}
+footer{background:#06212C;color:#7E97A2;font-size:.85rem;padding:26px 0;margin-top:30px}
+footer .in{max-width:720px;margin:0 auto;padding:0 22px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+footer a{color:#9FB3BC;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="./">Kit IA de l'<span>Automaticien</span></a>
+  <a class="btn" href="./">Obtenir le kit — 37&nbsp;€</a>
+</div></div>
+<main>
+  <p class="kicker">Workflow</p>
+  <h1>Transformer un cahier des charges en liste d&#x27;E/S avec l&#x27;IA</h1>
+  <p class="meta">Lecture 5 min · Kit IA de l'Automaticien</p>
+  
+<p class="lead">Un cahier des charges en prose à transformer en séquence claire et en liste d'entrées/sorties exhaustive : c'est long, fastidieux, et c'est là que les oublis coûtent cher en mise en service. Voici comment l'IA t'en sort une trame fiable en quelques minutes — que tu corriges au lieu de partir de la page blanche.</p>
+
+<h2>La méthode en 4 temps</h2>
+<ol>
+<li><strong>Anonymise</strong> le cahier des charges (jamais d'identifiant client dans un LLM public).</li>
+<li><strong>Structure la logique</strong> avec le prompt ci-dessous : il sort la séquence et la liste des hypothèses.</li>
+<li><strong>Corrige les hypothèses</strong> que l'IA a remontées — c'est là que ton expertise compte.</li>
+<li><strong>Génère la liste d'E/S</strong> à partir de la séquence validée.</li>
+</ol>
+
+<h2>Le prompt prêt à copier</h2>
+<div class="prompt"><span class="lbl">Prompt — structurer la logique</span>Tu es un automaticien senior. Tu transformes un cahier des charges
+en logique d'automatisme structurée, indépendante de la marque d'automate.
+
+CAHIER DES CHARGES (anonymisé)
+"""
+[colle ici le texte]
+"""
+
+ACTION
+1. Liste les MODES (auto, manuel, réglage, sécurité).
+2. Décris la SÉQUENCE en étapes numérotées (style GRAFCET) :
+   pour chaque étape -> actions, puis transition.
+3. Liste les SÉCURITÉS et leur effet sur la séquence.
+
+GARDE-FOU
+- Si une information manque, NE DEVINE PAS : ajoute une section
+  "HYPOTHÈSES À VALIDER" et liste chaque point flou.</div>
+
+<h2>Exemple concret</h2>
+<p>À partir d'un cahier des charges de poste de remplissage, l'IA sort une séquence du type « Étape 1 : bridage → Étape 2 : descente buse + remplissage → Étape 3 : évacuation », puis une section <strong>Hypothèses à valider</strong> : mesure de volume par débitmètre ou par temps ? Comportement sur timeout de remplissage ? Gestion d'un bidon mal positionné ?</p>
+<p class="note">Cette section « Hypothèses » vaut de l'or : ce sont exactement les questions qu'un bon automaticien poserait au bureau d'études. Tu transformes un cahier des charges flou en liste de questions précises.</p>
+
+<h2>Générer la liste d'E/S</h2>
+<p>Une fois la séquence validée, tu demandes la liste d'E/S au format tableau : Repère | Type (DI/DO/AI/AO) | Désignation | Capteur/Préactionneur | Sécurité (O/N), terminée par le compte par type. Tu obtiens une base exhaustive à fiabiliser, au lieu de la bâtir de zéro.</p>
+
+<h2>Les limites à connaître</h2>
+<p>L'IA ne connaît ni ton câblage réel, ni tes références constructeur, ni tes règles de repérage. Traite sa liste comme un brouillon expert : exhaustif sur la logique, à compléter sur le matériel. Le double comptage final (nombre d'E/S) t'aide à repérer un oubli au premier coup d'œil.</p>
+
+  <div class="cta">
+    <h3>Passe de la méthode aux gestes</h3>
+    <p>Le Kit IA de l'Automaticien réunit les 3 workflows complets, 10 prompts prêts à l'emploi et un guide de connexion — 100&nbsp;% francophone, tous automates. Téléchargement immédiat, 37&nbsp;€.</p>
+    <a class="btn" href="./">Découvrir le kit</a>
+  </div>
+  <div class="related"><h2>A lire aussi</h2><a href="ia-automaticien.html">IA pour l&#x27;automaticien : par où commencer &rarr;</a><a href="documenter-programme-automate-ia.html">Documenter un programme automate avec l&#x27;IA &rarr;</a></div>
+  <div class="faq"><h2>Questions fréquentes</h2><details><summary>Quel outil d&#x27;IA utiliser pour cette tâche ?</summary><div class="a">N'importe quel grand modèle récent convient. Pour un cahier des charges contenant des informations sensibles, anonymise d'abord, ou utilise un modèle hébergé en EU ou en local.</div></details><details><summary>L&#x27;IA peut-elle générer directement le programme automate ?</summary><div class="a">Elle peut proposer du pseudo-code ou du Structured Text, mais le résultat est une proposition à relire et à tester intégralement. Elle ne remplace pas la conception ni la recette.</div></details><details><summary>Comment être sûr qu&#x27;aucune E/S n&#x27;est oubliée ?</summary><div class="a">Demande à l'IA de terminer par un comptage par type (DI/DO/AI/AO) et de signaler tout élément ambigu sous « À confirmer ». Le comptage final sert de contrôle visuel rapide.</div></details></div>
+</main>
+<footer><div class="in">
+  <span>© 2026 — Kit IA de l'Automaticien</span>
+  <a href="./">Accueil</a>
+</div></footer>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Documenter un programme automate non commenté avec l&#x27;IA</title>
+<meta name="description" content="Comment comprendre et documenter un programme automate legacy sans commentaire grâce à l&#x27;IA : méthode, prompt prêt à l&#x27;emploi et exemple en Structured Text.">
+<link rel="canonical" href="https://factoryvalbst-coder.github.io/kit-ia-autom/documenter-programme-automate-ia.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Documenter un programme automate non commenté avec l&#x27;IA">
+<meta property="og:description" content="Comment comprendre et documenter un programme automate legacy sans commentaire grâce à l&#x27;IA : méthode, prompt prêt à l&#x27;emploi et exemple en Structured Text.">
+<meta property="og:url" content="https://factoryvalbst-coder.github.io/kit-ia-autom/documenter-programme-automate-ia.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Documenter un programme automate non commenté avec l'IA","description":"Comment comprendre et documenter un programme automate legacy sans commentaire grâce à l'IA : méthode, prompt prêt à l'emploi et exemple en Structured Text.","inLanguage":"fr","mainEntityOfPage":"https://factoryvalbst-coder.github.io/kit-ia-autom/documenter-programme-automate-ia.html"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"L'IA comprend-elle le Structured Text et le ladder ?","acceptedAnswer":{"@type":"Answer","text":"Elle lit très bien le Structured Text et la liste d'instructions. Pour le ladder, fournis-en une description textuelle ou une logique exportée ; elle reconstitue la structure."}},{"@type":"Question","name":"Peut-on lui faire commenter directement le programme ?","acceptedAnswer":{"@type":"Answer","text":"Oui : demande des commentaires prêts à coller, section par section. Relis-les avant intégration, surtout ceux marqués comme suppositions."}},{"@type":"Question","name":"Est-ce risqué pour la confidentialité ?","acceptedAnswer":{"@type":"Answer","text":"Oui si tu colles du code client tel quel. Anonymise les noms, repères et adresses réseau, ou utilise un modèle hébergé en EU ou en local pour les données sensibles."}}]}]}</script>
+<style>
+:root{
+  --petrol:#0B3D52;--petrol-2:#0A2A37;--petrol-line:#1C4E63;
+  --amber:#E8A317;--amber-soft:#F4C765;
+  --ink:#1A2228;--muted:#5C6B73;--paper:#F4F6F8;--line:#E1E8EC;--white:#fff;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","Cascadia Code",Consolas,"Liberation Mono","Courier New",monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--white);line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:#0B5E80}
+.topbar{background:var(--petrol);color:#fff;border-bottom:4px solid var(--amber)}
+.topbar .in{max-width:880px;margin:0 auto;padding:14px 22px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{font-weight:800;text-decoration:none;color:#fff;letter-spacing:-.01em}
+.brand span{color:var(--amber-soft)}
+.btn{display:inline-block;background:var(--amber);color:var(--petrol-2);font-weight:800;text-decoration:none;padding:10px 18px;border-radius:3px;border:2px solid var(--amber);font-size:.95rem}
+.btn:hover{filter:brightness(1.04)}
+main{max-width:720px;margin:0 auto;padding:40px 22px 10px}
+.kicker{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);font-weight:700;margin:0 0 10px}
+h1{font-size:clamp(1.8rem,4.6vw,2.5rem);line-height:1.15;letter-spacing:-.01em;margin:0 0 10px;font-weight:800;color:var(--petrol)}
+.meta{color:var(--muted);font-size:.9rem;margin:0 0 26px;font-family:var(--mono)}
+h2{font-size:1.35rem;margin:34px 0 10px;color:var(--petrol);letter-spacing:-.01em}
+h3{font-size:1.08rem;margin:22px 0 6px}
+p,li{font-size:1.04rem}
+ul,ol{padding-left:22px}
+li{margin:6px 0}
+.lead{font-size:1.14rem;color:#33424B}
+.prompt{background:var(--petrol-2);border:1px solid var(--petrol-line);border-radius:6px;padding:14px 16px;margin:16px 0;font-family:var(--mono);font-size:.82rem;color:#D6E2E8;white-space:pre-wrap;line-height:1.5;overflow-x:auto}
+.prompt .lbl{display:block;color:var(--amber);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.note{background:var(--paper);border-left:3px solid var(--amber);padding:12px 16px;margin:16px 0;border-radius:0 4px 4px 0;color:#33424B}
+.cta{background:var(--petrol);color:#fff;border-radius:8px;padding:26px 24px;margin:34px 0}
+.cta h3{margin:0 0 8px;color:#fff;font-size:1.25rem}
+.cta p{margin:0 0 16px;color:#CFDDE4}
+.related{border-top:1px solid var(--line);margin-top:34px;padding-top:18px}
+.related h2{font-size:1.05rem;margin:0 0 10px}
+.related a{display:block;padding:6px 0}
+.faq{margin-top:30px}
+.faq h2{margin-bottom:6px}
+.faq details{border-bottom:1px solid var(--line);padding:4px 0}
+.faq summary{cursor:pointer;font-weight:700;padding:14px 0;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq .a{color:#33424B;padding:0 0 14px}
+footer{background:#06212C;color:#7E97A2;font-size:.85rem;padding:26px 0;margin-top:30px}
+footer .in{max-width:720px;margin:0 auto;padding:0 22px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+footer a{color:#9FB3BC;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="./">Kit IA de l'<span>Automaticien</span></a>
+  <a class="btn" href="./">Obtenir le kit — 37&nbsp;€</a>
+</div></div>
+<main>
+  <p class="kicker">Workflow</p>
+  <h1>Documenter un programme automate non commenté avec l&#x27;IA</h1>
+  <p class="meta">Lecture 4 min · Kit IA de l'Automaticien</p>
+  
+<p class="lead">Reprise de machine, départ du concepteur, sous-traitant injoignable : tu te retrouves devant un programme sans commentaires, des variables cryptiques, zéro documentation. Avant toute modification, il faut comprendre l'intention. Un LLM lit ce genre de code très vite et t'en génère un premier jet de documentation que tu corriges.</p>
+
+<h2>La méthode</h2>
+<ol>
+<li>Exporte un bloc lisible (Structured Text, liste d'instructions, ladder décrit).</li>
+<li>Anonymise (jamais d'identifiant client dans un LLM public).</li>
+<li>Lance le prompt : il produit une explication par section + un tableau des variables.</li>
+<li>Valide l'intention métier — la seule chose que l'IA ne peut pas inventer.</li>
+</ol>
+
+<h2>Le prompt prêt à copier</h2>
+<div class="prompt"><span class="lbl">Prompt — documenter un programme</span>Tu es un automaticien senior qui reprend un programme non documenté.
+
+CODE (anonymisé)
+"""
+[colle ici le bloc]
+"""
+
+ACTION
+1. Résume en 3 lignes ce que fait ce bloc.
+2. Découpe-le en sections logiques et explique le rôle de chacune.
+3. Génère un TABLEAU des variables : nom | type supposé | rôle probable.
+4. Propose des commentaires de code prêts à coller.
+
+GARDE-FOU
+- Distingue ce qui est CERTAIN (lecture du code) de ce qui est
+  SUPPOSÉ (intention métier). Marque tout supposé par [SUPPOSITION].</div>
+
+<h2>Pourquoi le marqueur [SUPPOSITION] change tout</h2>
+<p class="note">Forcer l'IA à séparer le certain du supposé t'évite de prendre une hypothèse pour une vérité. Tu sais exactement quoi aller vérifier sur la machine avant de modifier quoi que ce soit.</p>
+
+<h2>Exemple</h2>
+<p>Sur un bloc de régulation de niveau par pompe avec hystérésis, l'IA restitue : le résumé (« régulation de niveau, hystérésis 20/80&nbsp;%, coupure sécurité »), le découpage par sections, et un tableau des variables où le pourcentage de niveau est marqué <code>[SUPPOSITION]</code> faute de contexte. Tu valides ou corriges ce point précis, puis tu colles les commentaires générés.</p>
+
+<h2>Documentation n'est pas validation</h2>
+<p>Une doc générée t'aide à comprendre, pas à certifier. Sur une machine en exploitation, confronte toujours l'explication de l'IA au comportement réel avant d'intervenir.</p>
+
+  <div class="cta">
+    <h3>Passe de la méthode aux gestes</h3>
+    <p>Le Kit IA de l'Automaticien réunit les 3 workflows complets, 10 prompts prêts à l'emploi et un guide de connexion — 100&nbsp;% francophone, tous automates. Téléchargement immédiat, 37&nbsp;€.</p>
+    <a class="btn" href="./">Découvrir le kit</a>
+  </div>
+  <div class="related"><h2>A lire aussi</h2><a href="ia-automaticien.html">IA pour l&#x27;automaticien : par où commencer &rarr;</a><a href="cahier-des-charges-liste-es-ia.html">Cahier des charges → liste d&#x27;E/S avec l&#x27;IA &rarr;</a></div>
+  <div class="faq"><h2>Questions fréquentes</h2><details><summary>L&#x27;IA comprend-elle le Structured Text et le ladder ?</summary><div class="a">Elle lit très bien le Structured Text et la liste d'instructions. Pour le ladder, fournis-en une description textuelle ou une logique exportée ; elle reconstitue la structure.</div></details><details><summary>Peut-on lui faire commenter directement le programme ?</summary><div class="a">Oui : demande des commentaires prêts à coller, section par section. Relis-les avant intégration, surtout ceux marqués comme suppositions.</div></details><details><summary>Est-ce risqué pour la confidentialité ?</summary><div class="a">Oui si tu colles du code client tel quel. Anonymise les noms, repères et adresses réseau, ou utilise un modèle hébergé en EU ou en local pour les données sensibles.</div></details></div>
+</main>
+<footer><div class="in">
+  <span>© 2026 — Kit IA de l'Automaticien</span>
+  <a href="./">Accueil</a>
+</div></footer>
+</body>
+</html>

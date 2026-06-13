@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IA pour l&#x27;automaticien : par où commencer concrètement (2026)</title>
+<meta name="description" content="Comment appliquer l&#x27;IA à ton métier d&#x27;automaticien : quel LLM choisir, confidentialité, méthode de prompting et 3 cas d&#x27;usage concrets. Guide francophone.">
+<link rel="canonical" href="https://factoryvalbst-coder.github.io/kit-ia-autom/ia-automaticien.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IA pour l&#x27;automaticien : par où commencer concrètement">
+<meta property="og:description" content="Comment appliquer l&#x27;IA à ton métier d&#x27;automaticien : quel LLM choisir, confidentialité, méthode de prompting et 3 cas d&#x27;usage concrets. Guide francophone.">
+<meta property="og:url" content="https://factoryvalbst-coder.github.io/kit-ia-autom/ia-automaticien.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"IA pour l'automaticien : par où commencer concrètement","description":"Comment appliquer l'IA à ton métier d'automaticien : quel LLM choisir, confidentialité, méthode de prompting et 3 cas d'usage concrets. Guide francophone.","inLanguage":"fr","mainEntityOfPage":"https://factoryvalbst-coder.github.io/kit-ia-autom/ia-automaticien.html"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Faut-il savoir coder en Python pour utiliser l'IA en automatisme ?","acceptedAnswer":{"@type":"Answer","text":"Non. 90&nbsp;% des tâches se font en copier-coller dans l'interface d'un LLM. Le script Python ne sert que si tu veux automatiser une tâche répétitive en volume."}},{"@type":"Question","name":"L'IA va-t-elle remplacer l'automaticien ?","acceptedAnswer":{"@type":"Answer","text":"Non. Elle structure et propose, mais ne connaît pas l'intention métier ni la sécurité réelle d'une machine. Le rôle de l'automaticien se déplace vers la supervision et la validation."}},{"@type":"Question","name":"Quel est le risque principal ?","acceptedAnswer":{"@type":"Answer","text":"La confidentialité. Ne colle jamais de code ou d'identifiant client dans un LLM public sans anonymiser. Pour les données très sensibles, utilise un modèle hébergé en EU ou en local."}}]}]}</script>
+<style>
+:root{
+  --petrol:#0B3D52;--petrol-2:#0A2A37;--petrol-line:#1C4E63;
+  --amber:#E8A317;--amber-soft:#F4C765;
+  --ink:#1A2228;--muted:#5C6B73;--paper:#F4F6F8;--line:#E1E8EC;--white:#fff;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","Cascadia Code",Consolas,"Liberation Mono","Courier New",monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--white);line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:#0B5E80}
+.topbar{background:var(--petrol);color:#fff;border-bottom:4px solid var(--amber)}
+.topbar .in{max-width:880px;margin:0 auto;padding:14px 22px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{font-weight:800;text-decoration:none;color:#fff;letter-spacing:-.01em}
+.brand span{color:var(--amber-soft)}
+.btn{display:inline-block;background:var(--amber);color:var(--petrol-2);font-weight:800;text-decoration:none;padding:10px 18px;border-radius:3px;border:2px solid var(--amber);font-size:.95rem}
+.btn:hover{filter:brightness(1.04)}
+main{max-width:720px;margin:0 auto;padding:40px 22px 10px}
+.kicker{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);font-weight:700;margin:0 0 10px}
+h1{font-size:clamp(1.8rem,4.6vw,2.5rem);line-height:1.15;letter-spacing:-.01em;margin:0 0 10px;font-weight:800;color:var(--petrol)}
+.meta{color:var(--muted);font-size:.9rem;margin:0 0 26px;font-family:var(--mono)}
+h2{font-size:1.35rem;margin:34px 0 10px;color:var(--petrol);letter-spacing:-.01em}
+h3{font-size:1.08rem;margin:22px 0 6px}
+p,li{font-size:1.04rem}
+ul,ol{padding-left:22px}
+li{margin:6px 0}
+.lead{font-size:1.14rem;color:#33424B}
+.prompt{background:var(--petrol-2);border:1px solid var(--petrol-line);border-radius:6px;padding:14px 16px;margin:16px 0;font-family:var(--mono);font-size:.82rem;color:#D6E2E8;white-space:pre-wrap;line-height:1.5;overflow-x:auto}
+.prompt .lbl{display:block;color:var(--amber);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.note{background:var(--paper);border-left:3px solid var(--amber);padding:12px 16px;margin:16px 0;border-radius:0 4px 4px 0;color:#33424B}
+.cta{background:var(--petrol);color:#fff;border-radius:8px;padding:26px 24px;margin:34px 0}
+.cta h3{margin:0 0 8px;color:#fff;font-size:1.25rem}
+.cta p{margin:0 0 16px;color:#CFDDE4}
+.related{border-top:1px solid var(--line);margin-top:34px;padding-top:18px}
+.related h2{font-size:1.05rem;margin:0 0 10px}
+.related a{display:block;padding:6px 0}
+.faq{margin-top:30px}
+.faq h2{margin-bottom:6px}
+.faq details{border-bottom:1px solid var(--line);padding:4px 0}
+.faq summary{cursor:pointer;font-weight:700;padding:14px 0;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq .a{color:#33424B;padding:0 0 14px}
+footer{background:#06212C;color:#7E97A2;font-size:.85rem;padding:26px 0;margin-top:30px}
+footer .in{max-width:720px;margin:0 auto;padding:0 22px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+footer a{color:#9FB3BC;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="./">Kit IA de l'<span>Automaticien</span></a>
+  <a class="btn" href="./">Obtenir le kit — 37&nbsp;€</a>
+</div></div>
+<main>
+  <p class="kicker">Guide</p>
+  <h1>IA pour l&#x27;automaticien : par où commencer concrètement</h1>
+  <p class="meta">Lecture 6 min · Kit IA de l'Automaticien</p>
+  
+<p class="lead">L'IA arrive dans l'automatisme : agents de codage PLC, serveurs MCP, ponts entre LLM et environnements de programmation. La vraie question n'est plus <em>si</em>, mais <strong>comment l'appliquer à ton vrai poste</strong> — un cahier des charges à structurer, un programme legacy sans commentaire, une migration qui traîne. Ce guide te donne les bases concrètes, sans théorie inutile.</p>
+
+<h2>Ce que l'IA fait bien (et mal) pour un automaticien</h2>
+<p>Un grand modèle de langage excelle à <strong>structurer, expliquer et rédiger</strong> : transformer une prose en séquence, documenter un code, générer une liste d'entrées/sorties, ébaucher une analyse de risque. En revanche, il ne connaît ni ton câblage réel, ni tes références constructeur, ni l'intention métier derrière un programme. Et il ne mesure pas la sécurité des personnes.</p>
+<p>La bonne posture : l'IA <strong>propose</strong>, l'automaticien <strong>valide et teste</strong>. Aucune sortie ne va en exploitation sans relecture humaine.</p>
+
+<h2>Quel LLM choisir ?</h2>
+<p>N'importe quel grand modèle récent suffit pour 90 % des tâches. Le choix se joue surtout sur la confidentialité :</p>
+<ul>
+<li><strong>Cloud</strong> (modèles grand public) : pour les tâches ponctuelles sur des données non sensibles.</li>
+<li><strong>Hébergé en EU</strong> : quand la sensibilité des données l'impose.</li>
+<li><strong>Local</strong> (type Ollama) : pour des données client ultra-sensibles, sans aucune fuite réseau.</li>
+</ul>
+
+<h2>La règle d'or : la confidentialité industrielle</h2>
+<p>Un programme automate ou un cahier des charges client sont souvent couverts par un accord de confidentialité. <strong>Anonymise systématiquement</strong> (CLIENT_X, MACHINE_1, 10.0.0.x) avant de coller quoi que ce soit dans un LLM public. Un bloc de logique anonymisé se traite très bien sans le contexte commercial.</p>
+
+<h2>Prompter comme un automaticien : la méthode CRAFT</h2>
+<p>Un prompt raté est presque toujours un prompt vague. Une trame réutilisable :</p>
+<ul>
+<li><strong>C</strong>ontexte (équipement, automate, contrainte)</li>
+<li><strong>R</strong>ôle (« tu es un automaticien senior… »)</li>
+<li><strong>A</strong>ction (le verbe : structurer, documenter, convertir)</li>
+<li><strong>F</strong>ormat (tableau, séquence, pseudo-code)</li>
+<li><strong>T</strong>est (le critère : « signale toute ambiguïté au lieu d'inventer »)</li>
+</ul>
+<p>Le bloc Test est le plus négligé et le plus puissant : il transforme un modèle bavard en collègue rigoureux.</p>
+
+<h2>3 cas d'usage concrets</h2>
+<p>Trois tâches où l'IA fait gagner du temps dès le premier projet :</p>
+<ol>
+<li><strong>Transformer un cahier des charges en logique + liste d'E/S</strong> — <a href="cahier-des-charges-liste-es-ia.html">voir le guide détaillé</a>.</li>
+<li><strong>Documenter un programme non commenté</strong> — <a href="documenter-programme-automate-ia.html">voir le guide détaillé</a>.</li>
+<li><strong>Migrer ou refactoriser</strong> une logique sans recopier les vieux bugs (extraire l'intention, nettoyer, régénérer).</li>
+</ol>
+
+<h2>Le garde-fou qui ne change jamais</h2>
+<p>Plus l'IA est branchée directement à tes outils, plus la relecture humaine devient critique. L'automatisation déplace l'effort de la saisie vers la supervision — elle ne le supprime pas. Sur un automatisme, la sécurité prime sur tout gain de temps.</p>
+
+  <div class="cta">
+    <h3>Passe de la méthode aux gestes</h3>
+    <p>Le Kit IA de l'Automaticien réunit les 3 workflows complets, 10 prompts prêts à l'emploi et un guide de connexion — 100&nbsp;% francophone, tous automates. Téléchargement immédiat, 37&nbsp;€.</p>
+    <a class="btn" href="./">Découvrir le kit</a>
+  </div>
+  <div class="related"><h2>A lire aussi</h2><a href="cahier-des-charges-liste-es-ia.html">Cahier des charges → liste d&#x27;E/S avec l&#x27;IA &rarr;</a><a href="documenter-programme-automate-ia.html">Documenter un programme automate avec l&#x27;IA &rarr;</a></div>
+  <div class="faq"><h2>Questions fréquentes</h2><details><summary>Faut-il savoir coder en Python pour utiliser l&#x27;IA en automatisme ?</summary><div class="a">Non. 90&nbsp;% des tâches se font en copier-coller dans l'interface d'un LLM. Le script Python ne sert que si tu veux automatiser une tâche répétitive en volume.</div></details><details><summary>L&#x27;IA va-t-elle remplacer l&#x27;automaticien ?</summary><div class="a">Non. Elle structure et propose, mais ne connaît pas l'intention métier ni la sécurité réelle d'une machine. Le rôle de l'automaticien se déplace vers la supervision et la validation.</div></details><details><summary>Quel est le risque principal ?</summary><div class="a">La confidentialité. Ne colle jamais de code ou d'identifiant client dans un LLM public sans anonymiser. Pour les données très sensibles, utilise un modèle hébergé en EU ou en local.</div></details></div>
+</main>
+<footer><div class="in">
+  <span>© 2026 — Kit IA de l'Automaticien</span>
+  <a href="./">Accueil</a>
+</div></footer>
+</body>
+</html>
